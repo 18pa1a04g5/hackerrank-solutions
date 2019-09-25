@@ -1,6 +1,22 @@
 /**
  * Implement the compare method to sort players based on their score in descending order, or if
  * their scores are equal, then sort them by their name in ascending order.
+ *
+ * Sample input:
+ * 5
+ * amy 100
+ * david 100
+ * heraldo 50
+ * aakansha 75
+ * aleksa 150
+ *
+ * Sample output:
+ *
+ * aleksa 150
+ * amy 100
+ * david 100
+ * aakansha 75
+ * heraldo 50
  */
 
 import java.util.*;
