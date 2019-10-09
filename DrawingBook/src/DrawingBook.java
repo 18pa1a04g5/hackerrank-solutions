@@ -13,11 +13,11 @@ public class DrawingBook {
 	
 	public static int pageCount(int n, int p) {
 
-		// others solution
-//		n = n / 2;
-//		p = p / 2;
-//
-//		return p < (n - p) ? p : (n - p);
+		// someone else's elegant solution
+		/*n = n / 2;
+		p = p / 2;
+
+		return p < (n - p) ? p : (n - p);*/
 
 		// my solution
 		if (p > n / 2) {
