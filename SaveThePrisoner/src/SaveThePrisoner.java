@@ -74,13 +74,13 @@ public class SaveThePrisoner {
 			System.out.println(saveThePrisoner(prisoners, sweets, start));
 		}
 	}
- 7 - 1 + 5 = 11 - 7 = 4
 
 	private static int saveThePrisoner(int n, int m, int s) {
-		if (((s - 1) + (m % n)) % n == 0) {
+    int prisonersPositions = ((s - 1) + (m % n)) % n;
+    if (prisonersPositions == 0) {
 			return n;
 		} else {
-			return ((s - 1) + (m % n)) % n;
+			return prisonersPositions;
 		}
 	}
 }
