@@ -104,9 +104,30 @@ public class ClimbingTheLeaderboard {
 	}
 	
 	private static int[] climbingLeaderboard(int[] scores, int[] alice) {
-		int[] alicesRanks = new int[alice.length];
+		int[] aliceRanks = new int[alice.length];
+		int[] leaderboard = createInitialLeaderBoard(scores);
+
+		for (int i = 0; i < alice.length; i++){
+			int aliceCurrentScore = alice[i];
+			int comparisonScoreIndex = binarySearchComparisonScoreIndex(scores, aliceCurrentScore);
+
+			if (aliceCurrentScore < scores[comparisonScoreIndex]) {
+				aliceRanks[i] = leaderboard[comparisonScoreIndex] + 1;
+			} else if (aliceCurrentScore >= scores[comparisonScoreIndex]) {
+				if (leaderboard[comparisonScoreIndex] == 1) {
+					aliceRanks[i] = 1;
+				} else {
+					aliceRanks[i] = leaderboard[comparisonScoreIndex];
+				}
+			}
+		}
+
+		return aliceRanks;
+	}
+
+	private static int[] createInitialLeaderBoard(int[] scores) {
 		int[] leaderboard = new int[scores.length];
-		leaderboard[0] = 1;
+		leaderboard[0]= 1;
 
 		for (int i = 1; i < scores.length; i++) {
 			if (scores[i] == scores[i - 1]) {
@@ -116,36 +137,27 @@ public class ClimbingTheLeaderboard {
 			}
 		}
 
-		for (int i = 0; i < alice.length; i++){
-			int left = 0;
-			int right = scores.length - 1;
-			int middle;
-			System.out.println(alice[i]);
-			while (left != right) {
-				middle = left + (right - left) / 2;
-				
-				if (alice[i] > scores[middle]) {
-					right = middle;
-				} else if (alice[i] < scores[middle]){
-					left = middle + 1;
-				} else if (alice[i] == scores[middle]) {
-					left = middle;
-					right = middle;
-				}
-				System.out.println(left + " " + right);
-			}
+		return leaderboard;
+	}
 
-			if (alice[i] < scores[right]) {
-				alicesRanks[i] = leaderboard[right] + 1;
-			} else if (alice[i] >= scores[right]) {
-				if (leaderboard[right] == 1) {
-					alicesRanks[i] = 1;
-				} else {
-					alicesRanks[i] = leaderboard[right];
-				}
+	private static int binarySearchComparisonScoreIndex(int[] scores, int currentScore) {
+		int left = 0;
+		int right = scores.length - 1;
+		int middle;
+
+		while (left != right) {
+			middle = left + (right - left) / 2;
+
+			if (currentScore > scores[middle]) {
+				right = middle;
+			} else if (currentScore < scores[middle]){
+				left = middle + 1;
+			} else if (currentScore == scores[middle]) {
+				left = middle;
+				right = middle;
 			}
 		}
 
-		return alicesRanks;
+		return right;
 	}
 }
